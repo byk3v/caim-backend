@@ -36,6 +36,7 @@
     "facebook-sdk": "^0.3.3",
     "fbgraph": "^1.4.4",
     "get-video-id": "^3.2.0",
+    "googleapis": "^68.0.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nest-access-control": "^2.0.2",
@@ -50,7 +51,8 @@
     "rxjs": "^6.6.3",
     "swagger-ui-express": "^4.1.6",
     "typeorm": "^0.2.29",
-    "updated-youtube-info": "^1.4.7"
+    "updated-youtube-info": "^1.4.7",
+    "youtube-v3-api": "^1.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",

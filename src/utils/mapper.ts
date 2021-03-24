@@ -43,7 +43,11 @@ import { PersonaDTO } from '../rh-persona/dto/persona.dto';
 import { Contrato } from '../rh-contrato/entities/rh-contrato.entity';
 import { ContratoDTO } from '../rh-contrato/dto/contrato.dto';
 import { Noticia } from '../noticia/entity/noticia.entity';
-import { NoticiaDTO, CreateNoticiaDTO} from '../noticia/entity/noticia.dto'
+import { NoticiaDTO} from '../noticia/entity/noticia.dto'
+import { Periodista } from 'src/periodista/entities/periodista.entity';
+import { PeriodistaDto } from 'src/periodista/dto/periodista.dto';
+import { Programapreview } from 'src/programapreview/entities/programapreview.entity';
+import { ProgramaPreviewDto } from 'src/programapreview/dto/programapreview.dto';
 
 
 export const toUserDto = (data: User): UserDto => {
@@ -68,9 +72,10 @@ export const toMedioDto = (data: Medio): MedioDTO => {
   return { id, nombre, logo };
 
 };export const toEmisionDto = (data: Emision): EmisionDTO => {
-  const { id, nombre, logo, canal } = data;
+  const { id, nombre, programa, canal } = data;
   const canalId = canal.id;
-  return { id, nombre, logo, canalId };
+  const programpreviewId = programa.id;
+  return { id, nombre, canalId, programpreviewId };
 };
 
 export const toDeporteDto = (data: Deporte): DeporteDTO => {
@@ -161,10 +166,11 @@ export const toContratoDto = (data: Contrato): ContratoDTO => {
 };
 
 export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
-  const { id, ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica } = data;
+  const { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, periodista, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica } = data;
   
   const emisionId = emision.id ? emision.id : '';
   const generoPeriodisticoId = generoPeriodistico ? generoPeriodistico.id : '';
+  const periodistaId = periodista ? periodista.id : '';
   const categoriaPrincipalId = categoriaPrincipal ? categoriaPrincipal.id : '';
   const politicaInformativaId = politicaInformativa ? politicaInformativa.id : '';
   const actoresEconomicosId = actoresEconomicos ? actoresEconomicos.id : '';
@@ -177,5 +183,16 @@ export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
   
 console.log(emision, generoPeriodistico, categoriaPrincipal, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica);
 
-  return { id, ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId };
+  return { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistaId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId };
+};
+
+export const toPeriodistaDto = (data: Periodista): PeriodistaDto => {
+  const { id, nombre, descripcion } = data;
+  return { id, nombre, descripcion };
+};
+
+export const toProgramaDto = (data: Programapreview): ProgramaPreviewDto => {
+  const { id, nombre, descripcion, logo, canal } = data;
+  const canalId = canal ? canal.id : '';
+  return { id, nombre, descripcion, logo, canalId };
 };

@@ -3,9 +3,11 @@ import { HttpException, HttpStatus, Injectable, NotFoundException,} from '@nestj
   import { Repository, getConnection } from 'typeorm';
   import { Emision } from './entity/emision.entity';
   import { Canal } from '../canal/entity/canal.entity'
+  import { Programapreview} from '../programapreview/entities/programapreview.entity'
   import { CreateEmisionDto, EmisionDTO } from './entity/emision.dto';
   import { toEmisionDto } from '../utils/mapper';
   import { CanalRepository} from '../canal/entity/canal.repository'
+  import { ProgramapreviewRepository} from '../programapreview/entities/programapreview.repository'
 
 @Injectable()
 export class EmisionService {
@@ -29,12 +31,21 @@ export class EmisionService {
       }
     
       async createEmision( dto: CreateEmisionDto): Promise<EmisionDTO> { 
-        const { nombre, logo, canalId } = dto;
+        const { nombre, canalId, programpreviewId } = dto;
         const canalRepository: CanalRepository = await getConnection().getRepository(Canal,);
+        const programaRepository: ProgramapreviewRepository = await getConnection().getRepository(Programapreview);
         const canaleta = await canalRepository.findOne(canalId);
+        const programa = await programaRepository.findOne(programpreviewId);
         if (!canaleta) {
           throw new HttpException(
-            'No existe Medio con ese ID para insertar el canal',
+            'No existe Canal con ese ID para insertar en la emision',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+
+        if (!programa) {
+          throw new HttpException(
+            'No existe Programa con ese ID para insertar en esta emisión',
             HttpStatus.BAD_REQUEST,
           );
         }
@@ -50,8 +61,9 @@ export class EmisionService {
           );
         }
     
-        const emision: Emision = await this.EmisionRepository.create({ nombre, logo },);
+        const emision: Emision = await this.EmisionRepository.create({ nombre },);
         emision.canal = canaleta;
+        emision.programa = programa;
         await this.EmisionRepository.save(emision);
         return toEmisionDto(emision);
       }

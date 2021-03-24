@@ -10,6 +10,7 @@ import { EstadoNoticia } from '../../estadonoticia/entities/estadonoticia.entity
 import { Deporte } from '../../deporte/entities/deporte.entity';
 import { ManifestacionArtistica } from '../../manifestacionartistica/entities/manifestacionartistica.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
+import { Periodista } from 'src/periodista/entities/periodista.entity';
 
 
 @Entity('mon_noticia')
@@ -58,8 +59,8 @@ export class Noticia {
   @ManyToOne(type => Pais, pais => pais.noticias)  //id_pais
   pais?: Pais;
 
-  @Column({ type: 'varchar' })    
-  periodista?: string;
+  @ManyToOne(type => Periodista, periodista => periodista.noticias)  //id_periodista  
+  periodista?: Periodista;
 
   @Column({ type: 'varchar' })
   entrevistados?: string;

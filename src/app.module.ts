@@ -27,6 +27,8 @@ import { RhContratoModule } from './rh-contrato/rh-contrato.module';
 import { RhCargoModule } from './rh-cargo/rh-cargo.module';
 import { RhTarifaxcargoModule } from './rh-tarifaxcargo/rh-tarifaxcargo.module';
 import { RhTipocontratoModule } from './rh-tipocontrato/rh-tipocontrato.module';
+import { PeriodistaModule } from './periodista/periodista.module';
+import { ProgramapreviewModule } from './programapreview/programapreview.module';
 
 let connectionOptions;
 let optionsSQL;
@@ -93,6 +95,8 @@ optionsSQL = {
     RhCargoModule,
     RhTarifaxcargoModule,
     RhTipocontratoModule,
+    PeriodistaModule,
+    ProgramapreviewModule,
     
      //connectionOptions o optionsSQL
     ],

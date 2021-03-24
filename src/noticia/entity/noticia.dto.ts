@@ -16,9 +16,6 @@ export class NoticiaDTO {
   tareaOrdenamiento?: string;
 
   @IsString()
-  periodista?: string;
-
-  @IsString()
   entrevistados?: string;
   
   @IsString()
@@ -45,6 +42,9 @@ export class NoticiaDTO {
   @IsString()
   generoPeriodisticoId: string;
   
+  @IsString()
+  periodistaId?: string;
+
   @IsString()
   categoriaPrincipalId : string;
   
@@ -87,9 +87,6 @@ export class CreateNoticiaDTO {
   tareaOrdenamiento?: string;
 
   @IsString()
-  periodista?: string;
-
-  @IsString()
   entrevistados?: string;
   
   @IsString()
@@ -115,7 +112,10 @@ export class CreateNoticiaDTO {
 
   @IsString()
   generoPeriodisticoId: string;
-  
+
+  @IsString()
+  periodistaId?: string;
+
   @IsString()
   categoriaPrincipalId : string;
   

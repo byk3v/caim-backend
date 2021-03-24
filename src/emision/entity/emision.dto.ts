@@ -8,8 +8,7 @@ export class EmisionDTO {
   @IsString()
   nombre: string;
 
-  @IsString()
-  logo: string;
+  programpreviewId: string;
 
   canalId: string;
 
@@ -21,7 +20,7 @@ export class CreateEmisionDto {
   nombre: string;
 
   @IsString()
-  logo: string;
+  programpreviewId: string;
 
   canalId: string;
 }

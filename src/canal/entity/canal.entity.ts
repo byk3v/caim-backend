@@ -1,4 +1,5 @@
 import { Emision } from 'src/emision/entity/emision.entity';
+import { Programapreview } from 'src/programapreview/entities/programapreview.entity';
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToMany} from 'typeorm';
 import { Medio} from '../../medio/entity/medios.entity';
 
@@ -24,4 +25,7 @@ export class Canal {
 
   @OneToMany(type => Emision, emision => emision.canal)
   emisiones?: Emision[];
+
+  @OneToMany(type => Programapreview, program => program.canal)
+  programas?: Programapreview[];
 }

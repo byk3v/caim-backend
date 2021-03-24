@@ -1,10 +1,9 @@
 import { Canal } from 'src/canal/entity/canal.entity';
-import { Noticia } from 'src/noticia/entity/noticia.entity';
-import { Programapreview} from '../../programapreview/entities/programapreview.entity'
+import { Emision } from 'src/emision/entity/emision.entity';
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany, ManyToOne} from 'typeorm';
 
-@Entity('mon_emision')
-export class Emision {
+@Entity('mon_programas')
+export class Programapreview {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,7 +11,10 @@ export class Emision {
   nombre: string;
   
   @Column({ type: 'varchar' })
-  logo: string;
+  descripcion: string;
+
+  @Column({ type: 'varchar' })
+  logo?: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   fechaEmision: Date;
@@ -23,12 +25,9 @@ export class Emision {
   @UpdateDateColumn({ type: 'timestamp' })
   modifiedAt: Date;
 
-  @ManyToOne(type => Canal, canal => canal.emisiones)
+  @ManyToOne(type => Canal, canal => canal.programas)
   canal?: Canal;
 
-  @ManyToOne(type => Programapreview, program => program.emisiones)
-  programa?: Programapreview;
-
-  @OneToMany(type => Noticia, noticia => noticia.emision)
-  noticias?: Noticia[];
+  @OneToMany(type => Emision, emision => emision.programa)
+  emisiones?: Emision[];
 }
