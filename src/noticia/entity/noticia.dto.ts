@@ -42,8 +42,8 @@ export class NoticiaDTO {
   @IsString()
   generoPeriodisticoId: string;
   
-  @IsString()
-  periodistaId?: string;
+  @IsArray()
+  periodistas?: string[];
 
   @IsString()
   categoriaPrincipalId : string;
@@ -113,8 +113,8 @@ export class CreateNoticiaDTO {
   @IsString()
   generoPeriodisticoId: string;
 
-  @IsString()
-  periodistaId?: string;
+  @IsArray()
+  periodistas?: string[];
 
   @IsString()
   categoriaPrincipalId : string;

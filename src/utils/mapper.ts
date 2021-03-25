@@ -166,11 +166,10 @@ export const toContratoDto = (data: Contrato): ContratoDTO => {
 };
 
 export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
-  const { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, periodista, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica } = data;
+  const { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, periodistas, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica } = data;
   
   const emisionId = emision.id ? emision.id : '';
   const generoPeriodisticoId = generoPeriodistico ? generoPeriodistico.id : '';
-  const periodistaId = periodista ? periodista.id : '';
   const categoriaPrincipalId = categoriaPrincipal ? categoriaPrincipal.id : '';
   const politicaInformativaId = politicaInformativa ? politicaInformativa.id : '';
   const actoresEconomicosId = actoresEconomicos ? actoresEconomicos.id : '';
@@ -181,9 +180,8 @@ export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
   const deporteId = deporte ? deporte.id : '';
   const manifestacionArtisticaId = manifestacionArtistica ? manifestacionArtistica.id : '';
   
-console.log(emision, generoPeriodistico, categoriaPrincipal, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, deporte, manifestacionArtistica);
 
-  return { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistaId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId };
+  return { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId };
 };
 
 export const toPeriodistaDto = (data: Periodista): PeriodistaDto => {

@@ -48,19 +48,21 @@ export class NoticiaService {
       }
     
       async create( dto: CreateNoticiaDTO): Promise<NoticiaDTO> { 
-        const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistaId, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId } = dto;
+        const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId } = dto;
         //console.log(ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId );
 
         const EmisionRepository: EmisionRepository = await getConnection().getRepository(Emision,);
         const emision = await EmisionRepository.findOne(emisionId);
         const GeneroPeriodisticoRepository: GeneroPeriodisticoRepository = await getConnection().getRepository(GeneroPeriodistico,);
         const genero = await GeneroPeriodisticoRepository.findOne(generoPeriodisticoId);
-        const PeriodistaRepository: PeriodistaRepository = await getConnection().getRepository(Periodista,);
-        const periodista = await PeriodistaRepository.findOne(periodistaId);
+        /*const PeriodistaRepository: PeriodistaRepository = await getConnection().getRepository(Periodista,);
+        const periodista = await PeriodistaRepository.findOne(periodistaId);*/
         const PoliticaInformativaRepository: PoliticaInformativaRepository = await getConnection().getRepository(PoliticaInformativa,);
         const politicainformativa = await PoliticaInformativaRepository.findOne(politicaInformativaId);
         const CategoriaRepository: CategoriaRepository = await getConnection().getRepository(Categoria,);
         const categoria = await CategoriaRepository.findOne(categoriaPrincipalId);
+        const PeriodistaRepository: PeriodistaRepository = await getConnection().getRepository(Periodista,);
+        //const periodista = await PeriodistaRepository.findOne(categoriaPrincipalId);
         const ActoresEconomicosRepository: ActoresEconomicosRepository = await getConnection().getRepository(ActoresEconomicos,);
         const actoreseconomico = await ActoresEconomicosRepository.findOne(actoresEconomicosId);
         const UserRepository: UserRepository = await getConnection().getRepository(User,);
@@ -148,15 +150,18 @@ export class NoticiaService {
         //Aqui alguna validacion para crear la noticia, pensar prohibiciones
           
     
-        const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
+        const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
         
         if (tags.length > 0) {
             noticia.tags = await CategoriaRepository.findByIds(tags);
           }
+
+          if (periodistas.length > 0) {
+            noticia.periodistas = await PeriodistaRepository.findByIds(periodistas);
+          }
         
         noticia.emision = emision;
         noticia.generoPeriodistico = genero;
-        noticia.periodista = periodista;
         noticia.categoriaPrincipal = categoria;
         noticia.politicaInformativa = politicainformativa;
         noticia.actoresEconomicos = actoreseconomico;

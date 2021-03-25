@@ -1,5 +1,5 @@
 import { Noticia } from '../../noticia/entity/noticia.entity';
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToMany} from 'typeorm';
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, JoinTable} from 'typeorm';
 
 @Entity('mon_periodista')
 export class Periodista {
@@ -18,6 +18,8 @@ export class Periodista {
   @UpdateDateColumn({ type: 'timestamp' })
   modifiedAt: Date;
 
-  @OneToMany(type => Noticia, noticia => noticia.periodista)
+  @ManyToMany(type => Noticia, (noticia) => noticia.periodistas)
+  @JoinTable({ name: 'mon_noticias_periodistas' })
   noticias?: Noticia[];
+
 }

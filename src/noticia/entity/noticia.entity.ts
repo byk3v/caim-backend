@@ -59,8 +59,11 @@ export class Noticia {
   @ManyToOne(type => Pais, pais => pais.noticias)  //id_pais
   pais?: Pais;
 
-  @ManyToOne(type => Periodista, periodista => periodista.noticias)  //id_periodista  
-  periodista?: Periodista;
+
+  @ManyToMany((type) => Categoria, (cat) => cat.noticias)  //Tags o categorias secundarias
+  
+  @ManyToMany(type => Periodista, (periodista) => periodista.noticias)  //periodistas por noticia 
+  periodistas?: Periodista[];
 
   @Column({ type: 'varchar' })
   entrevistados?: string;
