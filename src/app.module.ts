@@ -29,6 +29,8 @@ import { RhTarifaxcargoModule } from './rh-tarifaxcargo/rh-tarifaxcargo.module';
 import { RhTipocontratoModule } from './rh-tipocontrato/rh-tipocontrato.module';
 import { PeriodistaModule } from './periodista/periodista.module';
 import { ProgramapreviewModule } from './programapreview/programapreview.module';
+import { RacialidadModule } from './racialidad/racialidad.module';
+import { IndicacionesModule } from './indicaciones/indicaciones.module';
 
 let connectionOptions;
 let optionsSQL;
@@ -97,6 +99,8 @@ optionsSQL = {
     RhTipocontratoModule,
     PeriodistaModule,
     ProgramapreviewModule,
+    RacialidadModule,
+    IndicacionesModule,
     
      //connectionOptions o optionsSQL
     ],

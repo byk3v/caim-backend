@@ -11,7 +11,7 @@ import { Deporte } from '../../deporte/entities/deporte.entity';
 import { ManifestacionArtistica } from '../../manifestacionartistica/entities/manifestacionartistica.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
 import { Periodista } from 'src/periodista/entities/periodista.entity';
-
+import { Racialidad} from 'src/racialidad/entities/racialidad.entity';
 
 @Entity('mon_noticia')
 export class Noticia {
@@ -27,7 +27,7 @@ export class Noticia {
   @Column({ type: 'varchar' })
   tareaOrdenamiento?: string;
   
-  @ManyToOne(type => Emision, emision => emision.noticias)
+  @ManyToOne(type => Emision, emision => emision.noticias, { eager: true })
   emision?: Emision;
 
   @ManyToOne(type => GeneroPeriodistico, genero => genero.noticias)  //id_genero
@@ -59,10 +59,13 @@ export class Noticia {
   @ManyToOne(type => Pais, pais => pais.noticias)  //id_pais
   pais?: Pais;
 
+  @ManyToOne(type => Racialidad, racialidad => racialidad.noticias)  //id_racialidad
+  racialidad?: Racialidad;
 
-  @ManyToMany((type) => Categoria, (cat) => cat.noticias)  //Tags o categorias secundarias
+
+  //@ManyToMany((type) => Categoria, (cat) => cat.noticias)  //Tags o categorias secundarias
   
-  @ManyToMany(type => Periodista, (periodista) => periodista.noticias)  //periodistas por noticia 
+  @ManyToMany(type => Periodista, (periodista) => periodista.noticias, { eager: true })  //periodistas por noticia 
   periodistas?: Periodista[];
 
   @Column({ type: 'varchar' })

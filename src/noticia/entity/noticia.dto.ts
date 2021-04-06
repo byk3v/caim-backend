@@ -67,6 +67,9 @@ export class NoticiaDTO {
   territorioId?: string;
 
   @IsString()
+  racialidadId?: string;
+
+  @IsString()
   paisId?: string;
 
   @IsString()
@@ -135,16 +138,34 @@ export class CreateNoticiaDTO {
   usuarioId: string;
   
   @IsString()
-  territorioId?: string;
+  territorioId: string;
 
   @IsString()
-  paisId?: string;
+  whitejournalist: string;
 
   @IsString()
-  deporteId?: string;
+  blackjournalist: string;
 
   @IsString()
-  manifestacionArtisticaId?: string;
+  halfbloodjournalist: string;
+
+  @IsString()
+  whiteguest: string;
+
+  @IsString()
+  blackguest: string;
+
+  @IsString()
+  halfbloodguest: string;
+
+  @IsString()
+  paisId: string;
+
+  @IsString()
+  deporteId: string;
+
+  @IsString()
+  manifestacionArtisticaId: string;
 }
 
 export class UpdateNoticiaDTO extends PartialType(CreateNoticiaDTO) {}

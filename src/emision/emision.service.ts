@@ -23,7 +23,7 @@ export class EmisionService {
         } else return await this.EmisionRepository.find();
       }
     
-      async getbyId(id: string) {
+      async getbyId(id: string): Promise<Emision> {
         const emision = await this.EmisionRepository.findOne(id);
         if (!emision)
           throw new NotFoundException(`Esa Emision/Programa no existe`);

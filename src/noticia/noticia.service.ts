@@ -28,6 +28,9 @@ import { HttpException, HttpStatus, Injectable, NotFoundException,} from '@nestj
   import { Noticia } from './entity/noticia.entity';
 import { NoticiaDTO, CreateNoticiaDTO } from './entity/noticia.dto';
 import { toNoticiaDto } from '../utils/mapper';
+import { Racialidad } from 'src/racialidad/entities/racialidad.entity';
+import { RacialidadRepository } from 'src/racialidad/entities/racialidad.repository';
+import { RacialidadDto } from 'src/racialidad/dto/racialidad.dto';
 
 @Injectable()
 export class NoticiaService {
@@ -48,15 +51,15 @@ export class NoticiaService {
       }
     
       async create( dto: CreateNoticiaDTO): Promise<NoticiaDTO> { 
-        const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId } = dto;
+        const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest, deporteId, manifestacionArtisticaId } = dto;
         //console.log(ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId );
 
         const EmisionRepository: EmisionRepository = await getConnection().getRepository(Emision,);
         const emision = await EmisionRepository.findOne(emisionId);
         const GeneroPeriodisticoRepository: GeneroPeriodisticoRepository = await getConnection().getRepository(GeneroPeriodistico,);
         const genero = await GeneroPeriodisticoRepository.findOne(generoPeriodisticoId);
-        /*const PeriodistaRepository: PeriodistaRepository = await getConnection().getRepository(Periodista,);
-        const periodista = await PeriodistaRepository.findOne(periodistaId);*/
+        const RacialidadRepository: RacialidadRepository = await getConnection().getRepository(Racialidad,);
+        //const racialidad = await RacialidadRepository.findOne(racialidadId);
         const PoliticaInformativaRepository: PoliticaInformativaRepository = await getConnection().getRepository(PoliticaInformativa,);
         const politicainformativa = await PoliticaInformativaRepository.findOne(politicaInformativaId);
         const CategoriaRepository: CategoriaRepository = await getConnection().getRepository(Categoria,);
@@ -148,8 +151,14 @@ export class NoticiaService {
   */        
         
         //Aqui alguna validacion para crear la noticia, pensar prohibiciones
-          
+
+        const medio = emision;
+        console.log(medio);
+        const raza: Racialidad = await RacialidadRepository.create({whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest});
+        await RacialidadRepository.save(raza);
     
+       // console.log(whitejournalist);
+    //console.log(raza);
         const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
         
         if (tags.length > 0) {
@@ -169,6 +178,7 @@ export class NoticiaService {
         noticia.estado = estadonoticia;
         noticia.territorio = territorio;
         noticia.pais = pais;
+        noticia.racialidad= raza;
         noticia.deporte = deporte;
         noticia.manifestacionArtistica = manifestacionartistica;
         await this.NoticiaRepository.save(noticia);
