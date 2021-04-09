@@ -18,6 +18,39 @@ export class IndicacionesController {
     };
   }
 
+  @Get('forAllUsers')
+  //@UseGuards(JwtAuthGuard)
+  async getGeneralIndications() {
+    const data = await this.indicacionesService.getGeneralIndications();
+    
+    return {
+      message: 'Peticion correcta',
+      data: data,
+    };
+  }
+
+  @Get('byRole/:id')
+  //@UseGuards(JwtAuthGuard)
+  async getbyRol(@Param('id') id: string) {
+    const data = await this.indicacionesService.getbyRol(id);
+    return {
+      message: 'Peticion correcta',
+      data: data,
+    };
+
+  }
+
+  @Get('byUser/:id')
+  //@UseGuards(JwtAuthGuard)
+  async getbyUser(@Param('id') id: string) {
+    const data = await this.indicacionesService.getbyUser(id);
+    return {
+      message: 'Peticion correcta',
+      data: data,
+    };
+
+  }
+
   @Get(':id')
   getbyId(@Param('id') id: string) {
     return this.indicacionesService.getbyId(id);

@@ -26,6 +26,42 @@ export class IndicacionesService {
           throw new NotFoundException(`indicacion con ese id no fue encontrado`);
         return indi;
       }
+
+      async getbyRol(id: string) {
+        const indi = await getConnection().createQueryBuilder()
+        .select("indicacion")
+        .from(Indicacion, "indicacion")
+        .where("indicacion.rolId = :id", { id: id }) .getMany();
+        if (!indi)
+          throw new NotFoundException(`No encontramos indicaciones para ese rol`);
+          console.log(indi);
+        return indi;
+      }
+
+      async getbyUser(id: string) {
+        const indi = await getConnection().createQueryBuilder()
+        .select("indicacion")
+        .from(Indicacion, "indicacion")
+        .where("indicacion.receptorId = :id", { id: id }) .getMany();
+        if (!indi)
+          throw new NotFoundException(`No encontramos indicaciones para ese usuario`);
+          console.log(indi);
+        return indi;
+      }
+
+      async getGeneralIndications() {
+        //Buscar indicaciones where rolId y UserId esten vacios
+        const indi = await getConnection().createQueryBuilder()
+        .select("indicacion")
+        .from(Indicacion, "indicacion")
+        .where("indicacion.receptorId = :idrec", { idrec: "" })
+        .andWhere("indicacion.rolId = :idrol", { idrol: "" })
+        .getMany();
+        if (!indi)
+          throw new NotFoundException(`indicacion con ese id no fue encontrado`);
+          console.log(indi);
+        return indi;
+      }
     
       async create( dto: CreateIndicacionesDto): Promise<IndicacionesDto> { 
         const { texto, activa, emisorId, receptorId, rolId } = dto;
