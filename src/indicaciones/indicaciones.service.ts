@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException,} from '@nestjs/common';
   import { InjectRepository } from '@nestjs/typeorm';
-  import { Repository, getConnection } from 'typeorm'; 
+  import { Repository, getConnection, IsNull } from 'typeorm'; 
   import { User } from '../user/entities/user.entity'
   import { UserRepository} from '../user/entities/user.repository';
   import { Role } from '../role/entities/role.entity';
@@ -51,16 +51,19 @@ export class IndicacionesService {
 
       async getGeneralIndications() {
         //Buscar indicaciones where rolId y UserId esten vacios
-        const indi = await getConnection().createQueryBuilder()
+        return await this.IndicacionRepository.find({
+          where: { receptor: IsNull(), rol: IsNull() }
+      });
+        /*const indi = await getConnection().createQueryBuilder()
         .select("indicacion")
         .from(Indicacion, "indicacion")
-        .where("indicacion.receptorId = :idrec", { idrec: "" })
-        .andWhere("indicacion.rolId = :idrol", { idrol: "" })
+        .where("indicacion.receptorId === null")//, { idrec: null }
+        //.andWhere("indicacion.rolId = :idrol", { idrol: null })
         .getMany();
         if (!indi)
           throw new NotFoundException(`indicacion con ese id no fue encontrado`);
           console.log(indi);
-        return indi;
+        return indi;*/
       }
     
       async create( dto: CreateIndicacionesDto): Promise<IndicacionesDto> { 
