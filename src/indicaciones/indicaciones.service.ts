@@ -49,21 +49,11 @@ export class IndicacionesService {
         return indi;
       }
 
-      async getGeneralIndications() {
-        //Buscar indicaciones where rolId y UserId esten vacios
+      async getGeneralIndications() {   //Buscar indicaciones where rolId y UserId esten vacios
+       
         return await this.IndicacionRepository.find({
           where: { receptor: IsNull(), rol: IsNull() }
       });
-        /*const indi = await getConnection().createQueryBuilder()
-        .select("indicacion")
-        .from(Indicacion, "indicacion")
-        .where("indicacion.receptorId === null")//, { idrec: null }
-        //.andWhere("indicacion.rolId = :idrol", { idrol: null })
-        .getMany();
-        if (!indi)
-          throw new NotFoundException(`indicacion con ese id no fue encontrado`);
-          console.log(indi);
-        return indi;*/
       }
     
       async create( dto: CreateIndicacionesDto): Promise<IndicacionesDto> { 

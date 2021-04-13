@@ -157,8 +157,6 @@ export class NoticiaService {
         const raza: Racialidad = await RacialidadRepository.create({whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest});
         await RacialidadRepository.save(raza);
     
-       // console.log(whitejournalist);
-    //console.log(raza);
         const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
         
         if (tags.length > 0) {

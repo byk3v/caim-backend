@@ -19,9 +19,7 @@ import { RoleRepository } from '../role/entities/role.repository';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly UserRepository: Repository<User> /*@InjectRepository(Role)
-        private readonly RoleRepository: Repository<Role>
-        )*/,
+    private readonly UserRepository: Repository<User>,
   ) {}
 
   async getUser(): Promise<User[]> {
@@ -87,12 +85,20 @@ export class UserService {
       email,
     });
 
+    const roleRepository: RoleRepository = await getConnection().getRepository(Role,);
     if (roles.length > 0) {
-      const roleRepository: RoleRepository = await getConnection().getRepository(
-        Role,
-      );
-
+      
       user.roles = await roleRepository.findByIds(roles);
+    }
+    else
+    {
+      const name = "user";
+      const rolarray = [];
+      const rolUserSato = await roleRepository.findOne({
+        where: { name },
+      });
+      rolarray.push(rolUserSato);
+      user.roles = rolarray;
     }
     await this.UserRepository.save(user);
     return toUserDto(user);
