@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-
+import { ApiProperty} from '@nestjs/swagger'
 
 export class IndicacionesDto {
   @IsNotEmpty()
@@ -23,19 +23,19 @@ export class IndicacionesDto {
 }
 
 export class CreateIndicacionesDto {
-    @IsString()
+  @ApiProperty()  
     texto: string;
   
-    @IsString()
+    @ApiProperty()
     activa: string;
   
-    @IsString()
+    @ApiProperty()
     emisorId: string;
   
-    @IsString()
+    @ApiProperty()
     receptorId: string;
   
-    @IsString()
+    @ApiProperty()
     rolId: string;
 }
 
