@@ -32,11 +32,11 @@ export class ProgramapreviewService {
   async findProgramByMedio(medioId: string): Promise<Programapreview[]> {  
     return await getConnection()
       .getRepository(Programapreview)
-      .createQueryBuilder('Programapreview')
-      .addSelect('Programapreview.id, Programapreview.nombre')
-      .innerJoin('Canal', 'Programapreview.canalId = Canal.id')
-      .innerJoin('Medio', 'Canal.medioId = Medio.id')
-      .where('Medio.id = :medioId', { medioId })
+      .createQueryBuilder("programa")
+      .select("programa")
+      .innerJoin("programa.canal", "canal")
+      .innerJoin("canal.medio", "medio")
+      .where('medio.id = :medioId', { medioId })
       //.orderBy("user.name")
       .getMany();
   }
