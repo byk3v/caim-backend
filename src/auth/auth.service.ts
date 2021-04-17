@@ -58,7 +58,7 @@ export class AuthService {
       ...token,
       ...refreshToken,
       
-      currentAuthority: roles[0].name, // Temporal, hasta definirse el manejo de roles en el frontend  //"administrador"
+      currentAuthority: roles[0].name, // Temporal, el primer rol que tenga el tipo
     };
   }
 

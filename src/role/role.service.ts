@@ -37,7 +37,7 @@ export class RoleService {
     return await getConnection()
       .getRepository(Role)
       .createQueryBuilder('roles')
-      .select('roles.name')
+      .select('roles')
       .leftJoin('roles.users', 'users')
       .where('users.id = :userId', { userId })
       .getMany();

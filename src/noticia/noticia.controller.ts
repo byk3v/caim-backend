@@ -22,7 +22,17 @@ export class NoticiaController {
     getbyId(@Param('id') id: string) {
       return this.NoticiaService.getbyId(id);
     }
+
+    @Get('newsByUser/:id')
+    getNewsByUser(@Param('id') id: string) {
+      return this.NoticiaService.findNewsbyUser(id);
+    }
   
+    @Get('newsByState/:id')
+    getNewsByState(@Param('id') id: string) {
+      return this.NoticiaService.findNewsbyState(id);
+    }
+
     @Post()
     create(@Body() dto: CreateNoticiaDTO) {//, Me falta por poner los tags
       return this.NoticiaService.create(dto); 

@@ -49,6 +49,32 @@ export class NoticiaService {
           throw new NotFoundException(`noticia con ese id no fue encontrado`);
         return noticia;
       }
+
+      async findNewsbyUser(userId: string): Promise<Noticia[]> {  // Aqui tratar de devolver un NoticiaDTO[], pero faltan atribs en la entity
+        // return await this.Noticiaepository.find({
+        //   relations: ['users'],
+        //   where: { users: userId },
+        // });
+        console.log('userId', userId);
+        return await getConnection()
+          .getRepository(Noticia)
+          .createQueryBuilder('noticia')
+          .select('noticia')
+          .leftJoin('noticia.usuario', 'usuario')
+          .where('usuario.id = :userId', { userId })
+          .orderBy("noticia.createdAt", "ASC")
+          .getMany();
+      }
+
+      async findNewsbyState(stateId: string): Promise<Noticia[]> {  // Aqui tratar de devolver un NoticiaDTO[], pero faltan atribs en la entity
+        return await getConnection()
+          .getRepository(Noticia)
+          .createQueryBuilder('noticia')
+          .select('noticia')
+          .leftJoin('noticia.estado', 'estado')
+          .where('estado.id = :stateId', { stateId })
+          .getMany();
+      }
     
       async create( dto: CreateNoticiaDTO): Promise<NoticiaDTO> { 
         const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest, deporteId, manifestacionArtisticaId } = dto;

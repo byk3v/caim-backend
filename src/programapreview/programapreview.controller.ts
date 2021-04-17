@@ -22,6 +22,11 @@ export class ProgramapreviewController {
     getbyId(@Param('id') id: string) {
       return this.programapreviewService.getbyId(id);
     }
+
+    @Get('byMedio/:id')
+    getNewsByUser(@Param('id') id: string) {
+      return this.programapreviewService.findProgramByMedio(id);
+    }
   
     @Post()
     create(@Body() dto: CreateProgramaPreviewDto) {

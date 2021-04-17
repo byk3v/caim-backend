@@ -5,6 +5,7 @@ import { CreateProgramaPreviewDto, ProgramaPreviewDto } from './dto/programaprev
 import {Programapreview } from './entities/programapreview.entity'
 import { CanalRepository} from '../canal/entity/canal.repository'
 import { Canal } from '../canal/entity/canal.entity'
+import { Medio } from '../medio/entity/medios.entity'
 import { toProgramaDto } from '../utils/mapper';
 
 @Injectable()
@@ -26,6 +27,18 @@ export class ProgramapreviewService {
     if (!programa)
       throw new NotFoundException(`Ese programa no existe en BD`);
     return programa;
+  }
+
+  async findProgramByMedio(medioId: string): Promise<Programapreview[]> {  
+    return await getConnection()
+      .getRepository(Programapreview)
+      .createQueryBuilder('Programapreview')
+      .addSelect('Programapreview.id, Programapreview.nombre')
+      .innerJoin('Canal', 'Programapreview.canalId = Canal.id')
+      .innerJoin('Medio', 'Canal.medioId = Medio.id')
+      .where('Medio.id = :medioId', { medioId })
+      //.orderBy("user.name")
+      .getMany();
   }
 
   async create( dto: CreateProgramaPreviewDto): Promise<ProgramaPreviewDto> {

@@ -23,19 +23,24 @@ export class IndicacionesDto {
 }
 
 export class CreateIndicacionesDto {
-  @ApiProperty()  
-    texto: string;
+  @ApiProperty()
+  @IsString()  
+  texto: string;
   
-    @ApiProperty()
+  @ApiProperty()
+  @IsString()
     activa: string;
   
     @ApiProperty()
+    @IsString()
     emisorId: string;
   
     @ApiProperty()
+    @IsString()
     receptorId: string;
   
     @ApiProperty()
+    @IsString()
     rolId: string;
 }
 
