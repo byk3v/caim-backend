@@ -45,6 +45,8 @@ export class ProgramapreviewService {
     const { nombre, descripcion, logo, canalId } = dto;
     const canalRepository: CanalRepository = await getConnection().getRepository(Canal,);
     const canaleta = await canalRepository.findOne(canalId);
+    console.log(canalId);
+    console.log(canaleta);
     if (!canaleta) {
       throw new HttpException(
         'No existe Canal con ese ID para insertar en el programa',
