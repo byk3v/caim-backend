@@ -12,7 +12,7 @@ export class Categoria {
   @Column({ type: 'varchar' })
   nombre: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ length: 700 })
   descripcion: string;
 
   @CreateDateColumn({ type: 'timestamp' })

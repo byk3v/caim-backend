@@ -11,7 +11,7 @@ export class NoticiaDTO {
   ideaCentral: string;
 
   @IsString()
-  valoracion: string;
+  incidencias: string;
 
   @IsString()
   tareaOrdenamiento?: string;
@@ -87,7 +87,7 @@ export class CreateNoticiaDTO {
 
   @ApiProperty()
   @IsString()
-  valoracion: string;
+  incidencias: string;
 
   @ApiProperty()
   @IsString()

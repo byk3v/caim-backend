@@ -43,6 +43,20 @@ export class PaisService {
       await this.PaisRepository.save(pais);
       return toPaisDto(pais);
     }
+
+    async createMany( dto: []): Promise<PaisDTO> {
+        let ultimoinsertado :Pais = await this.PaisRepository.create({  },);
+        let descripcion ="";
+      for (let index = 0; index < dto.length; index++) {
+        const nombre = dto[index];
+        const pais: Pais = await this.PaisRepository.create({ nombre, descripcion },);
+
+        ultimoinsertado = Object.assign(pais, dto);
+        await this.PaisRepository.save(pais);  
+      }
+      
+      return toPaisDto(ultimoinsertado);
+    }
   
     async editPais(dto: CreatePaisDto, id: string) {
       const pais = await this.PaisRepository.findOne(id);

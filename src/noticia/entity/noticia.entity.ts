@@ -22,7 +22,7 @@ export class Noticia {
   ideaCentral: string;
   
   @Column({ type: 'varchar' })
-  valoracion?: string;
+  incidencias?: string;
 
   @Column({ type: 'varchar' })
   tareaOrdenamiento?: string;

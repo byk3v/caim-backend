@@ -77,8 +77,8 @@ export class NoticiaService {
       }
     
       async create( dto: CreateNoticiaDTO): Promise<NoticiaDTO> { 
-        const { ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest, deporteId, manifestacionArtisticaId } = dto;
-        //console.log(ideaCentral, valoracion, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId );
+        const { ideaCentral, incidencias, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, periodistas, categoriaPrincipalId, tags, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest, deporteId, manifestacionArtisticaId } = dto;
+        //console.log(ideaCentral, incidencias, tareaOrdenamiento, periodista, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, deporteId, manifestacionArtisticaId );
 
         const EmisionRepository: EmisionRepository = await getConnection().getRepository(Emision,);
         const emision = await EmisionRepository.findOne(emisionId);
@@ -183,7 +183,7 @@ export class NoticiaService {
         const raza: Racialidad = await RacialidadRepository.create({whitejournalist, blackjournalist, halfbloodjournalist, whiteguest, blackguest, halfbloodguest});
         await RacialidadRepository.save(raza);
     
-        const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
+        const noticia: Noticia = await this.NoticiaRepository.create({ ideaCentral, incidencias, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total },);
         
         if (tags.length > 0) {
             noticia.tags = await CategoriaRepository.findByIds(tags);

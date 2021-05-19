@@ -29,6 +29,11 @@ export class PaisController {
     createPais(@Body() dto: CreatePaisDto) {
       return this.PaisService.createPais(dto); 
     }
+
+    @Post('many')
+    createMany(@Body() dto: []) {
+      return this.PaisService.createMany(dto); 
+    }
   
     @Put(':id')
     updatePais(@Body() dto: CreatePaisDto, @Param('id') id) {

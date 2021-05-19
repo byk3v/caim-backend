@@ -66,6 +66,11 @@ export class DeporteController {
     createDeporte(@Body() dto: CreateDeporteDto) {
       return this.DeporteService.createDeporte(dto); 
     }
+
+    @Post('many')
+    createMany(@Body() dto: []) {
+      return this.DeporteService.createMany(dto); 
+    }
   
     @Put(':id')
     updateDeporte(@Body() dto: CreateDeporteDto, @Param('id') id) {

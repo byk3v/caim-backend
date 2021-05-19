@@ -13,10 +13,19 @@ export class CategoriaService {
   ) {}
 
   async getCategorias( codigo?: string): Promise<Categoria[]> {
-    if (codigo) {
+    /*if (codigo) {
       return await this.CategoriaRepository.find({ where: { codigo },
       });
-    } else return await this.CategoriaRepository.find();
+    } else return await this.CategoriaRepository.find().orderBy(codigo);*/
+    const categ = await getConnection().createQueryBuilder()
+        .select("categoria")
+        .from(Categoria, "categoria")
+        .orderBy("categoria.codigo") 
+        .getMany();
+        if (!categ)
+          throw new NotFoundException(`No encontramos categorias`);
+          //console.log(categ);
+        return categ;
   }
 
   async getbyId(id: string) {
@@ -30,7 +39,7 @@ export class CategoriaService {
     const { codigo, nombre, descripcion } = dto;
 
     const CategoriaInDB = await this.CategoriaRepository.findOne({
-      where: { nombre }
+      where: { codigo }
     });
 
     if (CategoriaInDB) {

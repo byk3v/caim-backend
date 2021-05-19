@@ -13,10 +13,18 @@ export class PoliticaInfService {
     ) {}
   
     async getPoliticaInformativa( nombre?: string): Promise<PoliticaInformativa[]> {
-      if (nombre) {
+      /*if (nombre) {
         return await this.PoliticaInfRepository.find({ where: { nombre },
         });
-      } else return await this.PoliticaInfRepository.find();
+      } else return await this.PoliticaInfRepository.find();*/
+      const poli = await getConnection().createQueryBuilder()
+        .select("politicainformativa")
+        .from(PoliticaInformativa, "politicainformativa")
+        .orderBy("politicainformativa.nombre") 
+        .getMany();
+        if (!poli)
+          throw new NotFoundException(`No encontramos entradas de politica informativas`);
+        return poli;
     }
   
     async getbyId(id: string) {

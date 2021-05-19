@@ -15,10 +15,18 @@ export class DeporteService {
     ) {}
   
     async getDeportes( nombre?: string): Promise<Deporte[]> {
-      if (nombre) {
+      /*if (nombre) {
         return await this.DeporteRepository.find({ where: { nombre },
         });
-      } else return await this.DeporteRepository.find();
+      } else return await this.DeporteRepository.find();*/
+      const depor = await getConnection().createQueryBuilder()
+        .select("deporte")
+        .from(Deporte, "deporte")
+        .orderBy("deporte.nombre") 
+        .getMany();
+        if (!depor)
+          throw new NotFoundException(`No encontramos deportes`);
+        return depor;
     }
   
     async getbyId(id: string) {
@@ -45,6 +53,20 @@ export class DeporteService {
       await this.DeporteRepository.save(deporte);
       return toDeporteDto(deporte);
     }
+
+    async createMany( dto: []): Promise<DeporteDTO> {
+      let ultimoinsertado :Deporte = await this.DeporteRepository.create({  },);
+      let descripcion ="";
+    for (let index = 0; index < dto.length; index++) {
+      const nombre = dto[index];
+      const deporte: Deporte = await this.DeporteRepository.create({ nombre, descripcion },);
+
+      ultimoinsertado = Object.assign(deporte, dto);
+      await this.DeporteRepository.save(deporte);  
+    }
+    
+    return toDeporteDto(ultimoinsertado);
+  }
   
     async editDeporte(dto: CreateDeporteDto, id: string) {
       const deporte = await this.DeporteRepository.findOne(id);

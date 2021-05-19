@@ -170,7 +170,7 @@ export const toContratoDto = (data: Contrato): ContratoDTO => {
 };
 
 export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
-  const { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, periodistas, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, racialidad, deporte, manifestacionArtistica } = data;
+  const { id, ideaCentral, incidencias, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emision, generoPeriodistico, periodistas, categoriaPrincipal, tags, politicaInformativa, actoresEconomicos, usuario, estado, territorio, pais, racialidad, deporte, manifestacionArtistica } = data;
   
   const emisionId = emision.id ? emision.id : '';
   const generoPeriodisticoId = generoPeriodistico ? generoPeriodistico.id : '';
@@ -186,7 +186,7 @@ export const toNoticiaDto = (data: Noticia): NoticiaDTO => {
   const manifestacionArtisticaId = manifestacionArtistica ? manifestacionArtistica.id : '';
   
 
-  return { id, ideaCentral, valoracion, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, racialidadId, deporteId, manifestacionArtisticaId };
+  return { id, ideaCentral, incidencias, tareaOrdenamiento, entrevistados, imagen, enlace, compartidas, comentarios, interacciones, total, emisionId, generoPeriodisticoId, categoriaPrincipalId, politicaInformativaId, actoresEconomicosId, usuarioId, estadoId, territorioId, paisId, racialidadId, deporteId, manifestacionArtisticaId };
 };
 
 export const toPeriodistaDto = (data: Periodista): PeriodistaDto => {
